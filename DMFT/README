@@ -1,0 +1,43 @@
+Output from the DMFT calcualtions are saved into files with three extension types
+
+1. *.dat: These files are text files, and are meant for human readability.
+2. *.npy: These files are numpy saved files which contain one array.
+3. *.npz: These files are numpy groups which contain many arrays.
+
+Reading .npy and .npz files
+
+First the  *.npz
+
+write following python script
+
+from numpy import load
+SE = load('SE_iter20.npy')
+SE[0,:,0] # <-- This is \Sigma_{i=0,upup}(omega)(For real space)
+
+Now for the .npz the python script will be
+
+data = load('everything_iter20.npz')
+print(data.files)
+
+the output will be
+['GT', 'old_SE', 'G', 'weiss', 'WT', 'SE', 'test_mat']
+
+data['SE'][0,:,0] # <-- This is \Sigma_{i=0,upup}(omega)(For real space)
+
+GT is Green's funtion in imaginary time G(\tau).
+
+old_SE is self-energy from previous iteration
+
+G Green's function in matsubara frequency G(i\omega_n)
+
+weiss is weiss mean-field in imaginary frequency
+
+WT weiss mean field imaginary time
+
+SE spatially resolved self-energy in matsubara frequecy
+
+test_mat is matrix containing the frequency dependent Green's function in site and spin basis 
+
+info.dat contains the information about parameters and the converegence for different quantity.
+
+We keep the file containg the observable (Nup_Ndown.dat) for all iteration while  other quantities only for a few last iterations
